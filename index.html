@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f4f4f4;
+        color: #333;
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 1rem;
+        text-align: center;
+      }
+      section {
+        max-width: 900px;
+        margin: auto;
+        padding: 2rem;
+      }
+      h1,
+      h2 {
+        margin-bottom: 0.5rem;
+      }
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: white;
+        padding: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      form {
+        background: white;
+        padding: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.5rem;
+        margin: 0.5rem 0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+      button {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      button:hover {
+        background: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>John Doe</h1>
+      <p>Web Developer & Designer</p>
+    </header>
+
+    <section>
+      <h2>About Me</h2>
+      <p>
+        Hello! I’m John, a passionate web developer who loves creating clean and
+        efficient code.
+      </p>
+
+      <h2>Projects</h2>
+      <div class="projects">
+        <div class="card">
+          <h3>Project 1</h3>
+          <p>Description...</p>
+        </div>
+        <div class="card">
+          <h3>Project 2</h3>
+          <p>Description...</p>
+        </div>
+      </div>
+
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <textarea name="message" placeholder="Your message" required></textarea>
+        <button type="submit">Send</button>
+        <p id="status"></p>
+      </form>
+    </section>
+
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const statusEl = document.getElementById("status");
+
+          try {
+            let res = await fetch(
+              "https://yourformapp.000webhostapp.com/contact.php",
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
+            let text = await res.text();
+            statusEl.textContent = text;
+            this.reset();
+          } catch (err) {
+            statusEl.textContent = "Error sending message.";
+          }
+        });
+    </script>
+  </body>
+</html>
